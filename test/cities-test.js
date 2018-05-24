@@ -8,7 +8,7 @@ describe( 'sanity', () => {
 
 const cities = require( '../cities.js' )
 
-describe( 'cities.zip', ()=>{
+describe( 'zip', ()=>{
   it( 'creates an object from fields and values', ()=>{
     assert.deepStrictEqual( cities.zip( ['a'], [1] ), 
                             { a: 1 })
@@ -22,7 +22,7 @@ describe( 'cities.zip', ()=>{
   })
 })
 
-describe( 'cities.remove', () => {
+describe( 'remove', () => {
   it( 'removes things from arrays', () => {
     assert.deepStrictEqual( cities.remove( 1, [1, 2, 3]),
                             [2, 3])
@@ -33,7 +33,7 @@ describe( 'cities.remove', () => {
   })
 })
 
-describe( 'cities.cleanLine', () => {
+describe( 'cleanLine', () => {
   it( 'splits strings at quotes (") and removes commata (,) or empty strings (\'\').', () => {
     assert.deepStrictEqual( cities.cleanLine( '"a","b","c"'),
                             ['a', 'b', 'c'])
@@ -44,7 +44,7 @@ describe( 'cities.cleanLine', () => {
   })
 })
 
-describe( 'cities.fixup', () => {
+describe( 'fixup', () => {
   it( 'parses selected object properties as numbers', () => {
     assert.deepStrictEqual( cities.fixup({ lng: "1.2",
                                            lat: "3.4",
