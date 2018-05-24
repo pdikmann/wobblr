@@ -4,8 +4,8 @@
 
 Finds the most recent Earthquakes in a particular area:
 
-`/recent/<city name>/<radius>`
-`/recent/<lat>/<lng>/<radius>`
+`/recent?city=<city name>&range=<radius>`
+`/recent?lat=<lat>&lng=<lng>&range=<radius>`
 
 Radius defaults to 200km.
 
@@ -24,10 +24,9 @@ Returns JSON:
 Returns 24 Arrays of magnitudes of earthquakes occuring within an area within a time frame,
 partitioned into 24 hour slots
 
-`/busy/<city name>/`
-`/busy/<city name>/<radius>/<time>`
+`/busy?city=<city name>&range=<radius>&period=<time>`
 
-Radius defaults to 200km, Time defaults to 7 days.
+Radius defaults to 200km, Period defaults to 7 days.
 
 Return JSON:
 ```
@@ -44,9 +43,7 @@ Return JSON:
 Attempts to find the shortest time period in which earthquake occurences appears to repeat -
 e.g. the frequency of earthquakes.
 
-`/cycle/<city name>`
-`/cycle?city=<city name>`
-`/cycle?city=CITY-NAME&range=RADIUS`
+`/cycle?city=<city name>&range=<radius>`
 
 
 ```
