@@ -1,10 +1,30 @@
+# Usage
+
+## Prerequisites
+
+- an installation of [NodeJS](https://nodejs.org/en/)
+- accompanied by [NPM](https://www.npmjs.com/)
+
+## Startup
+
+```
+node main.js
+```
+
+then
+
+```
+$ curl "http://localhost:3000/recent?lng=-115.6176667&lat=33.1545"
+=> {"recent":[{"mag":0.67,"distance":"116.3","time":"0.3"}, ...
+```
+
 # API Endpoints
 
 ## Recent Earthquakes in Area
 
 Finds the most recent Earthquakes in a particular area:
 
-`/recent?city=<city name>&range=<radius>`
+`/recent?city=<city name>&range=<radius>` (WIP)
 `/recent?lat=<lat>&lng=<lng>&range=<radius>`
 
 Radius defaults to 200km.
@@ -19,7 +39,7 @@ Returns JSON:
 ]}
 ```
 
-## Busy Hours
+## Busy Hours (WIP)
 
 Returns 24 Arrays of magnitudes of earthquakes occuring within an area within a time frame,
 partitioned into 24 hour slots
@@ -38,7 +58,7 @@ Return JSON:
 }
 ```
 
-## Cycle
+## Cycle (WIP)
 
 Attempts to find the shortest time period in which earthquake occurences appears to repeat -
 e.g. the frequency of earthquakes.
