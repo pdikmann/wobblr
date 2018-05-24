@@ -36,8 +36,16 @@ function loadCities(){
     .map( fixup )
 }
 
+function findCity( collection, name ){
+  for( const city of collection ){
+    if ( city.city_ascii == name ){ return city }
+  }
+  return null
+}
+
 module.exports = {
   cleanLine: cleanLine,
+  findCity: findCity,
   fixup: fixup,
   loadCities: loadCities,
   remove: remove,

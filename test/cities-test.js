@@ -55,4 +55,22 @@ describe( 'cities.fixup', () => {
   })
 })
 
-
+describe( 'findCity', () => {
+  let collection = cities.loadCities()
+  console.log( collection.length )
+  it( 'can find existing cities in a given collection by their name', () => {
+    assert.deepStrictEqual( cities.findCity( collection, "New York" ),
+                            {"city": "New York",
+                             "city_ascii": "New York",
+                             "country": "United States of America",
+                             "iso2": "US",
+                             "iso3": "USA",
+                             "lat": 40.74997906,
+                             "lng": -73.98001693,
+                             "pop": 13524139,
+                             "province": "New York" })
+  })
+  it( 'returns null when a city cannot be found', () => {
+    assert.deepStrictEqual( cities.findCity( collection, "Atlantis" ), null)
+  })
+})
