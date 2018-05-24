@@ -1,0 +1,22 @@
+{
+  "name": "wobblr",
+  "version": "1.0.0",
+  "description": "Earthquake Webservice",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pdikmann/wobblr.git"
+  },
+  "author": "Philipp Dikmann",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pdikmann/wobblr/issues"
+  },
+  "homepage": "https://github.com/pdikmann/wobblr#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

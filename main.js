@@ -4,6 +4,7 @@ const port = 3000
 const fs = require('fs')
 const http = require('http')
 const express = require('express')
+const app = express()
 
 // https://stackoverflow.com/questions/24680247/check-if-a-latitude-and-longitude-is-within-a-circle-google-maps
 function arePointsNear(checkPoint, centerPoint, km) {
@@ -25,21 +26,51 @@ function cleanLine( line ){
   return remove( '', remove( ',', line.split('"')))
 }
 
-const contents = fs.readFileSync( 'all_day.geojson', {encoding: 'utf8'} )
-const data = JSON.parse( contents )
-const view = data.features.map( f => [f.properties.place, f.properties.mag, '<br>' ])
+const daily = {
+  data: {},
+  update: () => {
+    const contents = fs.readFileSync( 'all_day.geojson', {encoding: 'utf8'} )
+    daily.data = JSON.parse( contents )
+    //const view = data.features.map( f => [f.properties.place, f.properties.mag, '<br>' ])
+    //const places = data.features.map( f => f.properties.place.replace( /.*? of /, '' ))
+  }
+}
 
-const places = data.features.map( f => f.properties.place.replace( /.*? of /, '' ))
+function inRange( centerPoint, range ){
+  let r = []
+  for ( const feature of daily.data.features ){
+    const checkPoint = { lng: feature.geometry.coordinates[0],
+                         lat: feature.geometry.coordinates[1] }
+    if ( arePointsNear( checkPoint, centerPoint, range )){
+      r.push( feature )
+    }
+  }
+  return r
+}
 
 // ================================================================================
 
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/plain')
-  res.end( places.toString() )
+// const server = http.createServer((req, res) => {
+//   res.statusCode = 200
+//   res.setHeader('Content-Type', 'text/plain')
+//   res.end( places.toString() )
+// })
+
+// server.listen(port, hostname, () => {
+//   console.log(`Server running at http://${hostname}:${port}/`)
+// })
+
+app.get('/', (req, res) => {res.send( 'Hello World' )})
+
+app.get('/recent', (req, res) => {
+  daily.update()
+  //res.send( daily.data )
+  res.send( inRange({ lng: req.query.lng,
+                      lat: req.query.lat },
+                   req.query.range))
 })
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`)
-})
+app.get('/huh', (req, res) => res.send( req.query ))
+
+app.listen( port, () => console.log( 'App is listening!' ))
