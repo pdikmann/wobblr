@@ -35,14 +35,14 @@ npm test
 
 Finds the most recent Earthquakes in a particular area:
 
-`/recent?lat=<lat>&lng=<lng>&range=<radius>`
+`/recent?lat=...&lng=...[&range=...]`
 - `lat`: latitude of area
 - `lng`: longitude of area
-- `radius`: furthest distance to consider, in kilometers
+- `range`: furthest distance to consider, in kilometers
 
-`/recent?city=<city name>&range=<radius>`
+`/recent?city=...[&range=...]`
 - `city`: name of city
-- `radius`: furthest distance to consider, in kilometers
+- `range`: furthest distance to consider, in kilometers
 
 Radius defaults to 200km.
 
