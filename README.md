@@ -17,6 +17,10 @@ then:
 ```
 curl "http://localhost:3000/recent?lng=-115.6176667&lat=33.1545"
 => {"recent":[{"mag":0.67,"distance":"116.3","time":"0.3"}, ...
+
+curl "http://localhost:3000/recent?city=Honolulu&range=400"
+=> {"recent":[{"mag":2.5,"distance":"339.4","time":"1.6"}, ...
+
 ```
 
 ## Run Tests
@@ -32,8 +36,13 @@ npm test
 Finds the most recent Earthquakes in a particular area:
 
 `/recent?lat=<lat>&lng=<lng>&range=<radius>`
+- `lat`: latitude of area
+- `lng`: longitude of area
+- `radius`: furthest distance to consider, in kilometers
 
-`/recent?city=<city name>&range=<radius>` (WIP)
+`/recent?city=<city name>&range=<radius>`
+- `city`: name of city
+- `radius`: furthest distance to consider, in kilometers
 
 Radius defaults to 200km.
 
