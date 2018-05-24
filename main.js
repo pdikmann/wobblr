@@ -22,7 +22,7 @@ function recent( centerPoint, range ){
 
 // Debug Routes
 app.get('/', (req, res) => {res.send( 'Hello World' )})
-app.get('/live', (req, res) => {getDaily( body => res.send( body ));})
+app.get('/live', (req, res) => { data.update( () => res.send( data.daily ));})
 app.get('/huh', (req, res) => res.send( req.query ))
 
 // Actual Routes
