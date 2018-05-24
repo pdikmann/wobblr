@@ -58,6 +58,8 @@ e.g. the frequency of earthquakes.
 }
 ```
 
-# Credits
+# Notes / Credits
 
+- Past Day Feed: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson
+- Past 30 Days Feed: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson
 - City GeoLocation DB used: https://simplemaps.com/data/world-cities
