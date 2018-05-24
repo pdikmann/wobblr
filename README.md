@@ -1,6 +1,6 @@
 # Usage
 
-## Prerequisites
+## Dependencies
 
 - an installation of [NodeJS](https://nodejs.org/en/)
 - accompanied by [NPM](https://www.npmjs.com/)
@@ -8,6 +8,7 @@
 ## Startup
 
 ```
+npm install
 node main.js
 ```
 
@@ -24,8 +25,9 @@ $ curl "http://localhost:3000/recent?lng=-115.6176667&lat=33.1545"
 
 Finds the most recent Earthquakes in a particular area:
 
-`/recent?city=<city name>&range=<radius>` (WIP)
 `/recent?lat=<lat>&lng=<lng>&range=<radius>`
+
+`/recent?city=<city name>&range=<radius>` (WIP)
 
 Radius defaults to 200km.
 
@@ -34,7 +36,7 @@ Returns JSON:
 { recent: [
     { mag: Float
       distance: Float // im km
-      time: Integer   // in "Minutes ago"
+      time: Integer   // in "Hours ago"
     } ...
 ]}
 ```
