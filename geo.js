@@ -12,7 +12,7 @@ function arePointsNear(checkPoint, centerPoint, km) {
   return distance( checkPoint, centerPoint ) <= km
 }
 
-function inRange( features, centerPoint, range ){
+function inRange( centerPoint, range, features ){
   const r = []
   for ( const feature of features ){
     if ( arePointsNear( getPoint( feature ), centerPoint, range )){

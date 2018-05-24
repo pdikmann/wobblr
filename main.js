@@ -10,7 +10,7 @@ const data = require('./data.js')
 function recent( centerPoint, range ){
   const r = { recent: [] }
   const now = Date.now()
-  for ( f of geo.inRange( data.daily.features, centerPoint, range )){
+  for ( f of geo.inRange( centerPoint, range, data.daily.features )){
     r.recent.push({
       mag: f.properties.mag,
       distance: geo.distance( geo.getPoint( f ), centerPoint ).toFixed(1),
