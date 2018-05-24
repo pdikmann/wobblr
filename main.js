@@ -16,6 +16,23 @@ function cleanLine( line ){
   return remove( '', remove( ',', line.split('"')))
 }
 
+function zip( fields, values ){
+  const r = {}
+  for( i in fields ){
+    r[fields[i]] = values[i]
+  }
+  return r
+}
+
+function loadCities(){
+  const lines = fs
+        .readFileSync( 'static/simplemaps-worldcities-basic-oc.csv', {encoding: 'utf8' })
+        .split( '\n' )
+        .map( cleanLine )
+  const zipCity = city => zip( lines[0], city )
+  return lines.slice(1).map( zipCity )
+}
+
 function getDaily( callback ){
   https.get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson', (res) => {
     let body = '';
@@ -32,18 +49,15 @@ const data = {
   daily: {},
   monthly: {},
   init: () => {
-    const cityfile = fs.readFileSync( 'static/simplemaps-worldcities-basic-oc.csv', {encoding: 'utf8' })
-    const citylines = cityfile.split('\n')
-    data.cities = citylines.map( cleanLine )
-    // TODO zip column names & row data into objects
+    data.cities = loadCities()
+    console.log( "init" )
   },
   update: callback => {
     if ( offline ){
       data.daily = JSON.parse( fs.readFileSync( 'static/all_day.geojson', {encoding: 'utf8'} ))
-      console.log( "offline" )
+      console.log( "using offline data" )
       callback()
     } else {
-      console.log( "online" )
       getDaily( daily =>{ data.daily = daily; callback()})
     }
   }
