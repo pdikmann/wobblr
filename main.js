@@ -6,6 +6,7 @@ const express = require('express')
 const app = express()
 const geo = require('./geo.js') // math on longitude and latitude
 const data = require('./data.js')
+const cities = require('./cities.js')
 
 function recent( centerPoint, range ){
   const r = { recent: [] }
@@ -27,12 +28,14 @@ app.get('/huh', (req, res) => res.send( req.query ))
 
 // Actual Routes
 app.get('/recent', (req, res) => {
-  if( req.query.offline ) data.offline = true; else data.offline = false
-  // TODO make sure lng and lat query parameters are defined
-  data.update( () =>
-               res.send( recent({ lng: req.query.lng,
-                                  lat: req.query.lat },
-                                req.query.range || 200 )))
+  if ( req.query.offline ) data.offline = true; else data.offline = false
+  if ( req.query.lng && req.query.lat ){ // '/recent?lat=...&lng=...'
+    data.update( () => res.send( recent({ lng: req.query.lng, lat: req.query.lat }, req.query.range || 200 )))
+  } else if ( req.query.city ){ // '/recent?city=...'
+    const city = cities.findCity( data.cities, req.query.city )
+    if ( city ){ data.update( () => res.send( recent( city, req.query.range || 200 )))}
+    else { res.send({ error: "city cannot be found", city: req.query.city })}
+  }
 })
 
 app.listen( port, () => console.log( 'App is listening!' ))
