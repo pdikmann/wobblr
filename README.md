@@ -38,13 +38,13 @@ Finds the most recent Earthquakes in a particular area:
 `/recent?lat=...&lng=...[&range=...]`
 - `lat`: latitude of area
 - `lng`: longitude of area
-- `range`: furthest distance to consider, in kilometers
+- `range` (optional): furthest distance to consider, in kilometers
 
 `/recent?city=...[&range=...]`
 - `city`: name of city
-- `range`: furthest distance to consider, in kilometers
+- `range` (optional): furthest distance to consider, in kilometers
 
-Radius defaults to 200km.
+`range` defaults to 200km.
 
 Returns JSON:
 ```
