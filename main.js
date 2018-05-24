@@ -1,37 +1,14 @@
 const hostname = '127.0.0.1'
 const port = 3000
-let offline = false
+let offline = false // for demo purposes
 //
-const geo = require('./geo.js')
 const fs = require('fs')
 const https = require('https')
 const express = require('express')
 const app = express()
-
-function remove( thing, from ){
-  return from.reduce((acc,curr) => curr !== thing ? acc.concat(curr) : acc, [])
-}
-
-function cleanLine( line ){
-  return remove( '', remove( ',', line.split('"')))
-}
-
-function zip( fields, values ){
-  const r = {}
-  for( i in fields ){
-    r[fields[i]] = values[i]
-  }
-  return r
-}
-
-function loadCities(){
-  const lines = fs
-        .readFileSync( 'static/simplemaps-worldcities-basic-oc.csv', {encoding: 'utf8' })
-        .split( '\n' )
-        .map( cleanLine )
-  const zipCity = city => zip( lines[0], city )
-  return lines.slice(1).map( zipCity )
-}
+//
+const geo = require('./geo.js') // math on longitude and latitude
+const cities = require('./cities.js') // city db
 
 function getDaily( callback ){
   https.get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson', (res) => {
@@ -49,7 +26,7 @@ const data = {
   daily: {},
   monthly: {},
   init: () => {
-    data.cities = loadCities()
+    data.cities = cities.loadCities()
     console.log( "init" )
   },
   update: callback => {
