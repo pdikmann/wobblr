@@ -5,18 +5,24 @@
 - an installation of [NodeJS](https://nodejs.org/en/)
 - accompanied by [NPM](https://www.npmjs.com/)
 
-## Startup
+## Start Service
 
 ```
 npm install
 node main.js
 ```
 
-then
+then:
 
 ```
-$ curl "http://localhost:3000/recent?lng=-115.6176667&lat=33.1545"
+curl "http://localhost:3000/recent?lng=-115.6176667&lat=33.1545"
 => {"recent":[{"mag":0.67,"distance":"116.3","time":"0.3"}, ...
+```
+
+## Run Tests
+
+```
+npm test
 ```
 
 # API Endpoints
