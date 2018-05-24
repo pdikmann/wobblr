@@ -48,19 +48,6 @@ function inRange( centerPoint, range ){
   return r
 }
 
-// ================================================================================
-
-
-// const server = http.createServer((req, res) => {
-//   res.statusCode = 200
-//   res.setHeader('Content-Type', 'text/plain')
-//   res.end( places.toString() )
-// })
-
-// server.listen(port, hostname, () => {
-//   console.log(`Server running at http://${hostname}:${port}/`)
-// })
-
 app.get('/', (req, res) => {res.send( 'Hello World' )})
 
 app.get('/recent', (req, res) => {
