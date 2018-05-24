@@ -74,7 +74,7 @@ app.get('/recent', (req, res) => {
   data.update( () =>
                res.send( recent({ lng: req.query.lng,
                                   lat: req.query.lat },
-                                req.query.range)))
+                                req.query.range || 200 )))
 })
 
 app.get('/huh', (req, res) => res.send( req.query ))
