@@ -11,7 +11,7 @@ function arePointsNear(checkPoint, centerPoint, km) {
   var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky
   var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx
   var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky
-  return Math.sqrt(dx * dx + dy * dy)
+  return Math.sqrt(dx * dx + dy * dy) <= km
 }
 
 const cityfile = fs.readFileSync( '/home/philipp/Downloads/simplemaps-worldcities-basic-oc.csv', {encoding: 'utf8' })
