@@ -36,4 +36,10 @@ function loadCities(){
     .map( fixup )
 }
 
-module.exports.loadCities = loadCities
+module.exports = {
+  cleanLine: cleanLine,
+  fixup: fixup,
+  loadCities: loadCities,
+  remove: remove,
+  zip: zip
+}

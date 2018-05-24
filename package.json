@@ -4,7 +4,7 @@
   "description": "Earthquake Webservice",
   "main": "main.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/pdikmann/wobblr#readme",
   "dependencies": {
     "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
