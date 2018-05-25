@@ -30,7 +30,8 @@ const data = {
     } else {
       getDaily( daily =>{ data.daily = daily; callback()})
     }
-  }
+  },
+  findCity: name => cities.findCity( data.cities, name )
 }
 data.init()
 

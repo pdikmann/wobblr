@@ -6,7 +6,6 @@ const express = require('express')
 const app = express()
 const geo = require('./geo.js') // math on longitude and latitude
 const data = require('./data.js')
-const cities = require('./cities.js')
 
 function recent( centerPoint, range ){
   const r = { recent: [] }
@@ -21,20 +20,32 @@ function recent( centerPoint, range ){
   return r
 }
 
+function recentResponse( res, place, range ){
+  return () => res.send( recent( place, range || 200 ))
+}
+
+function findCityAndRespond( res, cityName, range ){
+  const city = data.findCity( cityName )
+  if ( city ){ data.update( recentResponse( res, city, range ))}
+  else { res.send({ error: "city cannot be found", city: cityName })}
+}
+
 // Debug Routes
 app.get('/', (req, res) => {res.send( 'Hello World' )})
 app.get('/live', (req, res) => { data.update( () => res.send( data.daily ));})
 app.get('/huh', (req, res) => res.send( req.query ))
 
 // Actual Routes
+app.get('/recent/:city', (req, res ) => { findCityAndRespond( res, req.params.city, undefined )})
+
+app.get('/recent/:city/:range', (req, res ) => { findCityAndRespond( res, req.params.city, req.params.range )})
+
 app.get('/recent', (req, res) => {
   if ( req.query.offline ) data.offline = true; else data.offline = false
   if ( req.query.lng && req.query.lat ){ // '/recent?lat=...&lng=...'
-    data.update( () => res.send( recent({ lng: req.query.lng, lat: req.query.lat }, req.query.range || 200 )))
+    data.update( recentResponse( res, { lng: req.query.lng, lat: req.query.lat }, req.query.range ))
   } else if ( req.query.city ){ // '/recent?city=...'
-    const city = cities.findCity( data.cities, req.query.city )
-    if ( city ){ data.update( () => res.send( recent( city, req.query.range || 200 )))}
-    else { res.send({ error: "city cannot be found", city: req.query.city })}
+    findCityAndRespond( res, req.query.city, req.query.range )
   }
 })
 
