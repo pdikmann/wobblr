@@ -15,11 +15,12 @@ node main.js
 then:
 
 ```
+curl "http://localhost:3000/recent/Honolulu/400"
+or
+curl "http://localhost:3000/recent?city=Honolulu&range=400"
+or
 curl "http://localhost:3000/recent?lng=-115.6176667&lat=33.1545"
 => {"recent":[{"mag":0.67,"distance":"116.3","time":"0.3"}, ...
-
-curl "http://localhost:3000/recent?city=Honolulu&range=400"
-=> {"recent":[{"mag":2.5,"distance":"339.4","time":"1.6"}, ...
 
 ```
 
@@ -35,13 +36,17 @@ npm test
 
 Finds the most recent Earthquakes in a particular area:
 
-`/recent?lat=...&lng=...[&range=...]`
-- `lat`: latitude of area
-- `lng`: longitude of area
+`/recent/city[/range]`
+- `city`: name of city
 - `range` (optional): furthest distance to consider, in kilometers
 
 `/recent?city=...[&range=...]`
 - `city`: name of city
+- `range` (optional): furthest distance to consider, in kilometers
+
+`/recent?lat=...&lng=...[&range=...]`
+- `lat`: latitude of area
+- `lng`: longitude of area
 - `range` (optional): furthest distance to consider, in kilometers
 
 `range` defaults to 200km.
@@ -54,6 +59,11 @@ Returns JSON:
       time: Integer   // in "Hours ago"
     } ...
 ]}
+```
+... or an Error:
+```
+{ error: "city cannot be found", 
+  city: cityName }
 ```
 
 ## Busy Hours (WIP)
